@@ -1,9 +1,9 @@
 package net_package.main.web_server.handler;
 
-import net_package.main.web_server.handler.abstract_http.SimpleHttpResponse;
-import net_package.main.web_server.handler.exception_http.NullHttpRequestException;
-import net_package.main.web_server.handler.exception_http.NullHttpMethodException;
-import net_package.main.web_server.handler.interface_http.HttpHandler;
+import net_package.main.web_server.handler.abstract_classes.SimpleHttpResponse;
+import net_package.main.web_server.handler.exception.NullHttpRequestException;
+import net_package.main.web_server.handler.exception.NullHttpMethodException;
+import net_package.main.web_server.handler.interfaces.HttpHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;

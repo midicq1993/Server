@@ -1,4 +1,4 @@
-package net_package.main.web_server.handler.abstract_http;
+package net_package.main.web_server.handler.abstract_classes;
 
 import java.io.IOException;
 import java.io.PrintWriter;
