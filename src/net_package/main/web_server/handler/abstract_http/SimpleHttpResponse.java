@@ -8,24 +8,24 @@ public abstract class SimpleHttpResponse {
 
     private final PrintWriter WRITER;
 
-    private static final String HTML_Response = "<h1>Hello!</h1>";
+    private static final String HTML_SIMPLE_RESPONSE = "<h1>Hello!</h1>";
 
     public SimpleHttpResponse(Socket socket) throws IOException {
         WRITER = new PrintWriter(socket.getOutputStream(), true);
 
     }
 
-    public void simpleHeaderResponse() {
+    public void sendHeaderResponse() {
         WRITER.println("HTTP/1.1 200 OK");
         WRITER.println("Content-Type: text/html; charset=utf-8");
         WRITER.println("Content-Language: en");
-        WRITER.println("Content-Length: " + HTML_Response.length());
+        WRITER.println("Content-Length: " + HTML_SIMPLE_RESPONSE.length());
         WRITER.println("Connection: close");
         WRITER.println();
     }
 
-    public void sendResponse() {
-        WRITER.println(HTML_Response);
+    public void sendBodyResponse() {
+        WRITER.println(HTML_SIMPLE_RESPONSE);
     }
 
 

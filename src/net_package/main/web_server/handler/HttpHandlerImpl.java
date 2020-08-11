@@ -46,8 +46,8 @@ public class HttpHandlerImpl extends SimpleHttpResponse implements HttpHandler {
         if (method == null || method.length() == 0) throw new NullHttpMethodException();
 
         if (method.equals(HttpMethodEnum.GET.getMethod())) {
-            simpleHeaderResponse();
-            sendResponse();
+            sendHeaderResponse();
+            sendBodyResponse();
         }
     }
 
