@@ -1,19 +1,19 @@
-package net_package.main.mockup_server.handler.abstract_class;
+package net_package.main.web_server.handler.abstract_http;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public abstract class SimpleResponseWriter {
+public abstract class SimpleHttpResponse {
 
     private final PrintWriter WRITER;
 
     private static final String HTML_Response = "<h1>Hello!</h1>";
 
-    public SimpleResponseWriter(Socket socket) throws IOException {
+    public SimpleHttpResponse(Socket socket) throws IOException {
         WRITER = new PrintWriter(socket.getOutputStream(), true);
-    }
 
+    }
 
     public void simpleHeaderResponse() {
         WRITER.println("HTTP/1.1 200 OK");
@@ -24,12 +24,13 @@ public abstract class SimpleResponseWriter {
         WRITER.println();
     }
 
-
     public void sendResponse() {
         WRITER.println(HTML_Response);
     }
 
-    public void close() {
+
+    public void writerClose() {
+        WRITER.flush();
         WRITER.close();
     }
 

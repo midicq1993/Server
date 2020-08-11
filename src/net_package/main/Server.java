@@ -1,7 +1,7 @@
 package net_package.main;
 
 
-import net_package.main.mockup_server.HttpHandler;
+import net_package.main.web_server.ThreadServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,10 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Server {
 
-
     public static void main(String[] args) throws IOException {
         ExecutorService threadPool = new ThreadPoolExecutor(
-                2, 32,
+                4, 64,
                 60L, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(256));
 
@@ -25,7 +24,7 @@ public class Server {
 
         while (!serverSocket.isClosed()) {
             Socket socket = serverSocket.accept();
-            threadPool.submit(new HttpHandler(socket));
+            threadPool.submit(new ThreadServer(socket));
         }
     }
 }
