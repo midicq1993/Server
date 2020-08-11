@@ -30,7 +30,7 @@ public class ThreadServer implements Runnable {
             System.out.println(request);
 
             String httpMethod = handler.extractHttpMethod(request);
-            handler.processingRequestAndSendResponse(httpMethod);
+            handler.processingMethodAndSendResponse(httpMethod);
 
         } catch (IOException e) {
             e.printStackTrace();

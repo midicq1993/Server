@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface HttpHandler {
 
-    void processingRequestAndSendResponse(String method) throws NullHttpMethodException;
+    void processingMethodAndSendResponse(String method) throws NullHttpMethodException;
     String readRequest() throws IOException;
     String extractHttpMethod(String request) throws NullHttpRequestException;
 

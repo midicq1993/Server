@@ -42,7 +42,7 @@ public class HttpHandlerImpl extends SimpleHttpResponse implements HttpHandler {
 
 
     @Override
-    public void processingRequestAndSendResponse(String method) throws NullHttpMethodException {
+    public void processingMethodAndSendResponse(String method) throws NullHttpMethodException {
         if (method == null || method.length() == 0) throw new NullHttpMethodException();
 
         if (method.equals(HttpMethodEnum.GET.getMethod())) {
