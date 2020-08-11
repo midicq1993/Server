@@ -1,9 +1,9 @@
-package net_package.main.mockup_server.http_handler;
+package net_package.main.mockup_server.handler;
 
-import net_package.main.mockup_server.http_handler.abstract_class.SimpleResponseWriter;
-import net_package.main.mockup_server.http_handler.exception.NullHttpRequestException;
-import net_package.main.mockup_server.http_handler.exception.NullHttpMethodException;
-import net_package.main.mockup_server.http_handler.http_interface.HttpHandlerImpl;
+import net_package.main.mockup_server.handler.abstract_class.SimpleResponseWriter;
+import net_package.main.mockup_server.handler.exception.NullHttpRequestException;
+import net_package.main.mockup_server.handler.exception.NullHttpMethodException;
+import net_package.main.mockup_server.handler.http_interface.HttpHandlerImpl;
 
 import java.io.IOException;
 import java.net.Socket;

@@ -1,4 +1,4 @@
-package net_package.main.mockup_server.http_handler.http_interface;
+package net_package.main.mockup_server.handler.http_interface;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package net_package.main.mockup_server.http_handler.abstract_class;
+package net_package.main.mockup_server.handler.abstract_class;
 
 import java.io.IOException;
 import java.io.PrintWriter;

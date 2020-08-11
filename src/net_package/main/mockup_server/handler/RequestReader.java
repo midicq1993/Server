@@ -1,6 +1,6 @@
-package net_package.main.mockup_server.http_handler;
+package net_package.main.mockup_server.handler;
 
-import net_package.main.mockup_server.http_handler.http_interface.HttpRequestImpl;
+import net_package.main.mockup_server.handler.http_interface.HttpRequestImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package net_package.main.mockup_server.http_handler;
+package net_package.main.mockup_server.handler;
 
 public enum HttpMethodEnum {
     GET("GET");
