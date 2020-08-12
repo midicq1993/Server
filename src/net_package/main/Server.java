@@ -1,23 +1,17 @@
 package net_package.main;
 
 
-import net_package.main.web_server.ThreadServer;
+import net_package.main.webserver.ThreadServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class Server {
 
     public static void main(String[] args) throws IOException {
-        ExecutorService threadPool = new ThreadPoolExecutor(
-                4, 64,
-                60L, TimeUnit.SECONDS,
-                new ArrayBlockingQueue<>(256));
+        ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
         ServerSocket serverSocket = new ServerSocket(80);
         System.out.println("Server is created. Port: " + serverSocket.getLocalPort());

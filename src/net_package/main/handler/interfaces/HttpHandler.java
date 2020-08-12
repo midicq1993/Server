@@ -1,7 +1,7 @@
-package net_package.main.web_server.handler.interfaces;
+package net_package.main.handler.interfaces;
 
-import net_package.main.web_server.handler.exception.NullHttpMethodException;
-import net_package.main.web_server.handler.exception.NullHttpRequestException;
+import net_package.main.handler.exception.NullHttpMethodException;
+import net_package.main.handler.exception.NullHttpRequestException;
 
 import java.io.IOException;
 

@@ -1,16 +1,16 @@
-package net_package.main.web_server.handler;
+package net_package.main.handler;
 
-import net_package.main.web_server.handler.abstract_classes.SimpleHttpResponse;
-import net_package.main.web_server.handler.exception.NullHttpRequestException;
-import net_package.main.web_server.handler.exception.NullHttpMethodException;
-import net_package.main.web_server.handler.interfaces.HttpHandler;
+import net_package.main.handler.abstract_classes.SimpleResponseWriter;
+import net_package.main.handler.exception.NullHttpRequestException;
+import net_package.main.handler.exception.NullHttpMethodException;
+import net_package.main.handler.interfaces.HttpHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class HttpHandlerImpl extends SimpleHttpResponse implements HttpHandler {
+public class HttpHandlerImpl extends SimpleResponseWriter implements HttpHandler {
     private final BufferedReader READER;
     private final Socket socket;
 
