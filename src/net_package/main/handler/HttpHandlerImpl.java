@@ -50,9 +50,4 @@ public class HttpHandlerImpl extends SimpleResponseWriter implements HttpHandler
             sendBodyResponse();
         }
     }
-
-    public void readerClose() throws IOException {
-        READER.close();
-    }
-
 }

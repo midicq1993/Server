@@ -28,10 +28,4 @@ public abstract class SimpleResponseWriter {
         WRITER.println(HTML_SIMPLE_RESPONSE);
     }
 
-
-    public void writerClose() {
-        WRITER.flush();
-        WRITER.close();
-    }
-
 }
