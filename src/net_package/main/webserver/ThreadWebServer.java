@@ -12,7 +12,6 @@ import java.net.Socket;
 
 public class ThreadWebServer implements Runnable {
     private final Socket socket;
-    //private static final String HTML_SIMPLE_RESPONSE = "<h1>Hello!</h1>";
 
     public ThreadWebServer(Socket socket) {
         this.socket = socket;
