@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.Callable;
 
-public class ThreadWebServer implements Callable<Void> {
+public class ThreadWebServer implements Runnable {
     private final Socket socket;
 
     public ThreadWebServer(Socket socket) {
@@ -19,11 +19,11 @@ public class ThreadWebServer implements Callable<Void> {
     }
 
     @Override
-    public Void call() throws IOException {
+    public void run() {
         System.out.println("Client is connected. Port: " + socket.getPort());
         System.out.println("This thread - \"" + Thread.currentThread().getName() + "\" get port: " + socket.getPort());
 
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        try (socket; BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
 
             HttpHandlerImpl handler = new HttpHandlerImpl(socket);
@@ -41,10 +41,7 @@ public class ThreadWebServer implements Callable<Void> {
             System.out.println("HTTP request is incorrect or null");
         } catch (NullHttpMethodException e) {
             System.out.println("HTTP method is incorrect or null");
-        } finally {
-            socket.close();
         }
-        return null;
     }
 }
 
