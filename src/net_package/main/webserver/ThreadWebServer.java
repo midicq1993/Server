@@ -9,8 +9,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.Callable;
 
-public class ThreadWebServer implements Runnable {
+public class ThreadWebServer implements Callable<Void> {
     private final Socket socket;
 
     public ThreadWebServer(Socket socket) {
@@ -18,7 +19,7 @@ public class ThreadWebServer implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Void call() throws IOException {
         System.out.println("Client is connected. Port: " + socket.getPort());
         System.out.println("This thread - \"" + Thread.currentThread().getName() + "\" get port: " + socket.getPort());
 
@@ -40,7 +41,10 @@ public class ThreadWebServer implements Runnable {
             System.out.println("HTTP request is incorrect or null");
         } catch (NullHttpMethodException e) {
             System.out.println("HTTP method is incorrect or null");
+        } finally {
+            socket.close();
         }
+        return null;
     }
 }
 
