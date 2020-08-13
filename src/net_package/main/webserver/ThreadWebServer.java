@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.concurrent.Callable;
 
 public class ThreadWebServer implements Runnable {
     private final Socket socket;
@@ -23,17 +22,17 @@ public class ThreadWebServer implements Runnable {
         System.out.println("Client is connected. Port: " + socket.getPort());
         System.out.println("This thread - \"" + Thread.currentThread().getName() + "\" get port: " + socket.getPort());
 
-        try (socket; BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+             PrintWriter writer = new PrintWriter(this.socket.getOutputStream(), true)) {
 
-            HttpHandlerImpl handler = new HttpHandlerImpl(socket);
+            HttpHandlerImpl handler = new HttpHandlerImpl(this.socket);
 
             String request = handler.readRequest(bufferedReader);
             System.out.println(request);
 
             String httpMethod = handler.extractHttpMethod(request);
 
-            handler.processingMethodAndSendResponse(httpMethod, writer);
+            handler.methodHandler(httpMethod, writer);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class HttpHandlerImpl implements HttpHandler {
-    private final Socket socket;
+    public Socket socket;
     private static final String HTML_SIMPLE_RESPONSE = "<h1>Hello World!</h1>";
 
     public HttpHandlerImpl(Socket socket) {
@@ -23,15 +23,13 @@ public class HttpHandlerImpl implements HttpHandler {
         while (reader.ready()) {
             sb.append(reader.readLine()).append("\n");
         }
-        if (sb.toString().isEmpty() || sb.toString().isBlank()) {
-            return "Postman test a connection. Port: " + socket.getPort();
-        }
         return sb.toString();
     }
 
     @Override
     public String extractHttpMethod(String wholeRequest) throws NullHttpRequestException {
-        if (wholeRequest == null || wholeRequest.length() == 0) throw new NullHttpRequestException();
+        if (wholeRequest == null || wholeRequest.length() == 0)
+            throw new NullHttpRequestException("Request is invalid: " + wholeRequest);
 
         String[] strings = wholeRequest.split(" / ");
         return strings[0];
@@ -39,8 +37,9 @@ public class HttpHandlerImpl implements HttpHandler {
 
 
     @Override
-    public void processingMethodAndSendResponse(String method, PrintWriter writer) throws NullHttpMethodException {
-        if (method == null || method.length() == 0) throw new NullHttpMethodException();
+    public void methodHandler(String method, PrintWriter writer) throws NullHttpMethodException {
+        if (method == null || method.length() == 0)
+            throw new NullHttpMethodException("method is incorrect: " + method);
 
         if (method.equals(HttpMethodEnum.GET.getMethod())) {
             writer.println("HTTP/1.1 200 OK");

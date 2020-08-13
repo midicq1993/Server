@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 
 public interface HttpHandler {
 
-    void processingMethodAndSendResponse(String method, PrintWriter writer) throws NullHttpMethodException;
+    void methodHandler(String method, PrintWriter writer) throws NullHttpMethodException;
     String readRequest(BufferedReader reader) throws IOException;
     String extractHttpMethod(String request) throws NullHttpRequestException;
 
