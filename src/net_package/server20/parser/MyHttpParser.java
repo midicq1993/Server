@@ -8,23 +8,22 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 public class MyHttpParser implements SimpleHttpParser {
-    private final String wholeRequest;
     private final Map<String, String> requestHeaders = new HashMap<>();
 
     private String httpVersion;
     private String httpMethod;
 
-    public MyHttpParser(String wholeRequest) {
-        this.wholeRequest = wholeRequest;
+
+    public MyHttpParser() {
     }
 
     @Override
-    public void parseRequest() throws HttpFormatException {
-        if (this.wholeRequest == null || this.wholeRequest.length() == 0)
-            throw new HttpFormatException("Request is invalid: " + this.wholeRequest);
+    public void parseRequest(String wholeRequest) throws HttpFormatException {
+        if (wholeRequest == null || wholeRequest.length() == 0)
+            throw new HttpFormatException("Request is invalid: " + wholeRequest);
 
         String delim = "\r\n";
-        StringTokenizer tokenizer = new StringTokenizer(this.wholeRequest, delim);
+        StringTokenizer tokenizer = new StringTokenizer(wholeRequest, delim);
 
         parseRequestLine(tokenizer.nextToken());
 

@@ -36,8 +36,8 @@ public class ThreadWorker implements Runnable {
             System.out.println(wholeRequest);
 
             //PARSE Request
-            MyHttpParser parser = new MyHttpParser(wholeRequest);
-            parser.parseRequest();
+            MyHttpParser parser = new MyHttpParser();
+            parser.parseRequest(wholeRequest);
 
             String httpMethod = parser.getHttpMethod();
             String httpVersion = parser.getHttpVersion();
