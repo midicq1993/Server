@@ -1,4 +1,4 @@
-package net_package.main.handler;
+package net_package.server10.handler;
 
 public enum HttpMethodEnum {
     GET("GET");

@@ -1,7 +1,5 @@
-package net_package.main;
+package net_package.server10;
 
-
-import net_package.main.webserver.ThreadWebServer;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -21,7 +19,7 @@ public class Server {
 
         while (!serverSocket.isClosed()) {
             Socket socket = serverSocket.accept();
-            threadPool.submit(new ThreadWebServer(socket));
+            threadPool.submit(new ThreadPooledServer(socket));
         }
     }
 }

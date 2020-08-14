@@ -1,8 +1,8 @@
-package net_package.main.webserver;
+package net_package.server10;
 
-import net_package.main.handler.HttpHandlerImpl;
-import net_package.main.handler.exception.NullHttpMethodException;
-import net_package.main.handler.exception.NullHttpRequestException;
+import net_package.server10.handler.MyHttpHandler;
+import net_package.exception.HttpMethodException;
+import net_package.exception.HttpFormatException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,10 +10,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ThreadWebServer implements Runnable {
+public class ThreadPooledServer implements Runnable {
     private final Socket socket;
 
-    public ThreadWebServer(Socket socket) {
+    public ThreadPooledServer(Socket socket) {
         this.socket = socket;
     }
 
@@ -25,7 +25,7 @@ public class ThreadWebServer implements Runnable {
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
              PrintWriter writer = new PrintWriter(this.socket.getOutputStream(), true)) {
 
-            HttpHandlerImpl handler = new HttpHandlerImpl(this.socket);
+            MyHttpHandler handler = new MyHttpHandler(this.socket);
 
             String request = handler.readRequest(bufferedReader);
             System.out.println(request);
@@ -36,10 +36,8 @@ public class ThreadWebServer implements Runnable {
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NullHttpRequestException e) {
-            System.out.println("HTTP request is incorrect or null");
-        } catch (NullHttpMethodException e) {
-            System.out.println("HTTP method is incorrect or null");
+        } catch (HttpFormatException | HttpMethodException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

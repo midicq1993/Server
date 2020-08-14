@@ -1,7 +1,4 @@
-package servertest;
-
-
-
+package net_package.server20;
 
 
 public class Server {

@@ -1,19 +1,19 @@
-package net_package.main.handler;
+package net_package.server10.handler;
 
-import net_package.main.handler.exception.NullHttpRequestException;
-import net_package.main.handler.exception.NullHttpMethodException;
-import net_package.main.handler.interfaces.HttpHandler;
+import net_package.exception.HttpFormatException;
+import net_package.exception.HttpMethodException;
+import net_package.server10.interfaces.HttpHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class HttpHandlerImpl implements HttpHandler {
+public class MyHttpHandler implements HttpHandler {
     public Socket socket;
     private static final String HTML_SIMPLE_RESPONSE = "<h1>Hello World!</h1>";
 
-    public HttpHandlerImpl(Socket socket) {
+    public MyHttpHandler(Socket socket) {
         this.socket = socket;
     }
 
@@ -27,9 +27,9 @@ public class HttpHandlerImpl implements HttpHandler {
     }
 
     @Override
-    public String extractHttpMethod(String wholeRequest) throws NullHttpRequestException {
+    public String extractHttpMethod(String wholeRequest) throws HttpFormatException {
         if (wholeRequest == null || wholeRequest.length() == 0)
-            throw new NullHttpRequestException("Request is invalid: " + wholeRequest);
+            throw new HttpFormatException("Request is invalid: " + wholeRequest);
 
         String[] strings = wholeRequest.split(" / ");
         return strings[0];
@@ -37,9 +37,9 @@ public class HttpHandlerImpl implements HttpHandler {
 
 
     @Override
-    public void methodHandler(String method, PrintWriter writer) throws NullHttpMethodException {
+    public void methodHandler(String method, PrintWriter writer) throws HttpMethodException {
         if (method == null || method.length() == 0)
-            throw new NullHttpMethodException("method is incorrect: " + method);
+            throw new HttpMethodException("method is incorrect: " + method);
 
         if (method.equals(HttpMethodEnum.GET.getMethod())) {
             writer.println("HTTP/1.1 200 OK");

@@ -1,4 +1,4 @@
-package servertest;
+package net_package.server20;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,7 +10,7 @@ public class ThreadPooledServer implements Runnable {
     public final int port;
     public ServerSocket serverSocket;
     public ExecutorService threadPool = new ThreadPoolExecutor(
-            8, 64,
+            10, 64,
             60L, TimeUnit.SECONDS,
             new ArrayBlockingQueue<>(256));
 
@@ -31,7 +31,7 @@ public class ThreadPooledServer implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            threadPool.submit(new ThreadSocket(socket));
+            threadPool.submit(new ThreadWorker(socket));
         }
 
     }
