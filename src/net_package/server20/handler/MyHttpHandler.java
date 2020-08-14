@@ -3,7 +3,6 @@ package net_package.server20.handler;
 
 
 import net_package.exception.HttpMethodException;
-import net_package.server20.interfaces.HttpHandler;
 
 import java.util.Map;
 

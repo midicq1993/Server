@@ -1,4 +1,4 @@
-package net_package.server10.interfaces;
+package net_package.server10.handler;
 
 import net_package.exception.HttpMethodException;
 import net_package.exception.HttpFormatException;

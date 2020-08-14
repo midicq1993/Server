@@ -1,4 +1,4 @@
-package net_package.server20.interfaces;
+package net_package.server20.handler;
 
 
 import net_package.exception.HttpMethodException;

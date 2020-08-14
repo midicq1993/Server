@@ -2,7 +2,6 @@ package net_package.server20.parser;
 
 
 import net_package.exception.HttpFormatException;
-import net_package.server20.interfaces.SimpleHttpParser;
 
 import java.util.HashMap;
 import java.util.Map;
