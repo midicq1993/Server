@@ -30,7 +30,7 @@ public class MyHttpParser implements SimpleHttpParser {
         parseRequestLine(tokenizer.nextToken());
 
         while (tokenizer.hasMoreTokens()) {
-            appendHeaderParameter(tokenizer.nextToken());
+            splitHeaderLine(tokenizer.nextToken());
         }
     }
 
@@ -40,7 +40,7 @@ public class MyHttpParser implements SimpleHttpParser {
         setHttpVersion(strings[1]);
     }
 
-    private void appendHeaderParameter(String header) throws HttpFormatException {
+    private void splitHeaderLine(String header) throws HttpFormatException {
         int index = header.indexOf(":");
         if (index == -1) throw new HttpFormatException("Invalid header parameter: " + header);
 
