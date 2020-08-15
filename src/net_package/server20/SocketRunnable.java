@@ -13,10 +13,10 @@ import java.net.Socket;
 import java.util.Map;
 
 
-public class ThreadWorker implements Runnable {
+public class SocketRunnable implements Runnable {
     public Socket socket;
 
-    public ThreadWorker(Socket socket) {
+    public SocketRunnable(Socket socket) {
         this.socket = socket;
     }
 

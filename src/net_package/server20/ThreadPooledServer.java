@@ -34,7 +34,7 @@ public class ThreadPooledServer implements Runnable {
                 }
                 throw new RuntimeException("Error accepting client connection", e);
             }
-            threadPool.submit(new ThreadWorker(socket));
+            threadPool.submit(new SocketRunnable(socket));
         }
         this.threadPool.shutdown();
         System.out.println("Server stopped");
@@ -53,7 +53,6 @@ public class ThreadPooledServer implements Runnable {
             throw new RuntimeException("Error closing server", e);
         }
     }
-
 
     private void openServerSocket()  {
         try {
