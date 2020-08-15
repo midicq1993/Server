@@ -1,9 +1,7 @@
 package net_package.server20;
 
 
-
 import net_package.exception.HttpFormatException;
-import net_package.exception.HttpMethodException;
 import net_package.server20.handler.MyHttpHandler;
 import net_package.server20.parser.MyHttpParser;
 
@@ -23,11 +21,11 @@ public class ThreadWorker implements Runnable {
     }
 
     @Override
-    public void run()  {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(this.socket.getOutputStream(), true)) {
+    public void run() {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
 
-            //READ Request
+            //Read and console print whole request
             StringBuilder sb = new StringBuilder();
             while (reader.ready()) {
                 sb.append(reader.readLine()).append("\n");
@@ -35,27 +33,25 @@ public class ThreadWorker implements Runnable {
             String wholeRequest = sb.toString();
             System.out.println(wholeRequest);
 
-            //PARSE Request
+            //Parse request
             MyHttpParser parser = new MyHttpParser();
             parser.parseRequest(wholeRequest);
 
             String httpMethod = parser.getHttpMethod();
             String httpVersion = parser.getHttpVersion();
-            Map<String, String> headers = parser.getRequestHeaders();
+            Map<String, String> headers = parser.getAllHeaders();
 
 
-            //CREATE Response
+            //Create and send response
             MyHttpHandler httpHandler = new MyHttpHandler(httpMethod, httpVersion);
             String response = httpHandler.createSimpleResponse(headers);
 
-            //WRITE Response
             writer.print(response);
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (HttpFormatException | HttpMethodException e) {
+        } catch (HttpFormatException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }

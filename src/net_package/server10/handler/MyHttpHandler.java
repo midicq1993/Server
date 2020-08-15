@@ -1,7 +1,6 @@
 package net_package.server10.handler;
 
 import net_package.exception.HttpFormatException;
-import net_package.exception.HttpMethodException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,9 +35,9 @@ public class MyHttpHandler implements HttpHandler {
 
 
     @Override
-    public void methodHandler(String method, PrintWriter writer) throws HttpMethodException {
+    public void methodHandler(String method, PrintWriter writer) throws HttpFormatException {
         if (method == null || method.length() == 0)
-            throw new HttpMethodException("method is incorrect: " + method);
+            throw new HttpFormatException("http method is incorrect: " + method);
 
         if (method.equals(HttpMethodEnum.GET.getMethod())) {
             writer.println("HTTP/1.1 200 OK");

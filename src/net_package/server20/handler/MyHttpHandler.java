@@ -2,7 +2,7 @@ package net_package.server20.handler;
 
 
 
-import net_package.exception.HttpMethodException;
+import net_package.exception.HttpFormatException;
 
 import java.util.Map;
 
@@ -23,43 +23,51 @@ public class MyHttpHandler implements HttpHandler {
     }
 
     @Override
-    public String createSimpleResponse(Map<String, String> headers) throws HttpMethodException {
-        StringBuilder sb = new StringBuilder();
-        sb.append(createResponseLine()).append("\r\n");
+    public String createSimpleResponse(Map<String, String> headers) throws HttpFormatException {
+        StringBuilder strBuilder = new StringBuilder();
 
-        for (Map.Entry<String, String>pair:headers.entrySet()) {
-            sb.append(pair.getKey()).append(":").append(pair.getValue()).append("\r\n");
+        strBuilder.append(createResponseLine()).append("\r\n");
+
+        for (Map.Entry<String, String> pair : headers.entrySet()) {
+            strBuilder
+                    .append(pair.getKey())
+                    .append(":")
+                    .append(pair.getValue())
+                    .append("\r\n");
         }
-        sb.append("\r\n");
+        strBuilder.append("\r\n");
 
-        if (!this.httpMethod.equalsIgnoreCase("POST"))
-            sb.append(createBodyMessage());
+        if (!(httpMethod.equalsIgnoreCase("POST")))
+            strBuilder.append(createBodyMessage());
 
-        return sb.toString();
+        return strBuilder.toString();
     }
 
-    private String createResponseLine() throws HttpMethodException {
-        return this.httpVersion+" "+ createHttpResponseCode();
+    private String createResponseLine() throws HttpFormatException {
+        if (httpVersion == null || httpVersion.length() == 0)
+            throw new HttpFormatException("http version is invalid: " + httpVersion);
+
+        return httpVersion+" "+ createHttpResponseCode();
     }
 
-    private String createHttpResponseCode() throws HttpMethodException {
-        if (this.httpMethod == null || this.httpMethod.length() == 0)
-            throw new HttpMethodException("HTTP method is incorrect");
+    private String createHttpResponseCode() throws HttpFormatException {
+        if (httpMethod == null || httpMethod.length() == 0)
+            throw new HttpFormatException("http method is invalid: " + httpMethod);
 
         String httpResponseCode = "";
-        if (this.httpMethod.equalsIgnoreCase("GET")) {
+        if (httpMethod.equalsIgnoreCase("GET")) {
             for (Map.Entry<String, String> pair : httpReplies.entrySet()) {
                 if (pair.getKey().equals("200")){
                     httpResponseCode = pair.getKey()+" "+pair.getValue();
                 }
             }
-        } else if (this.httpMethod.equalsIgnoreCase("POST")) {
+        } else if (httpMethod.equalsIgnoreCase("POST")) {
             for (Map.Entry<String, String> pair : httpReplies.entrySet()) {
                 if (pair.getKey().equals("201")){
                     httpResponseCode = pair.getKey()+" "+pair.getValue();
                 }
             }
-        } else if (this.httpMethod.equalsIgnoreCase("DELETE")) {
+        } else if (httpMethod.equalsIgnoreCase("DELETE")) {
             for (Map.Entry<String, String> pair : httpReplies.entrySet()) {
                 if (pair.getKey().equals("400")){
                     httpResponseCode = pair.getKey()+" "+pair.getValue();
@@ -69,12 +77,10 @@ public class MyHttpHandler implements HttpHandler {
         return httpResponseCode;
     }
 
-    private String createBodyMessage() throws HttpMethodException {
-        if (this.httpMethod.equalsIgnoreCase("POST"))
-            throw new HttpMethodException("can`t return body message as response to POST request");
-
-        if (this.httpMethod.equalsIgnoreCase("GET")) {
+    private String createBodyMessage() {
+        if (httpMethod.equalsIgnoreCase("GET")) {
             return ResponseEnum.GET.getValue();
-        } else return ResponseEnum.DELETE.getValue();
+        }
+        return ResponseEnum.DELETE.getValue();
     }
 }

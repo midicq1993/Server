@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 public class MyHttpParser implements SimpleHttpParser {
-    private final Map<String, String> requestHeaders = new HashMap<>();
+    private final Map<String, String> allHeaders = new HashMap<>();
 
     private String httpVersion;
     private String httpMethod;
@@ -42,18 +42,18 @@ public class MyHttpParser implements SimpleHttpParser {
         int index = header.indexOf(":");
         if (index == -1) throw new HttpFormatException("Invalid header parameter: " + header);
 
-        requestHeaders.put(header.substring(0, index), header.substring(index+1));
+        allHeaders.put(header.substring(0, index), header.substring(index+1));
     }
 
     private void setHttpVersion(String httpVersion) throws HttpFormatException {
         if (httpVersion == null || httpVersion.length() == 0)
-            throw new HttpFormatException("Request line is incorrect: " + httpVersion);
+            throw new HttpFormatException("Request version is incorrect: " + httpVersion);
         this.httpVersion = httpVersion;
     }
 
     private void setHttpMethod(String httpMethod) throws HttpFormatException {
         if (httpMethod == null || httpMethod.length() == 0)
-            throw new HttpFormatException("Request line is incorrect: " + httpMethod);
+            throw new HttpFormatException("Request method is incorrect: " + httpMethod);
         this.httpMethod = httpMethod;
     }
 
@@ -61,8 +61,8 @@ public class MyHttpParser implements SimpleHttpParser {
         return httpVersion;
     }
 
-    public Map<String, String> getRequestHeaders() {
-        return requestHeaders;
+    public Map<String, String> getAllHeaders() {
+        return allHeaders;
     }
 
     public String getHttpMethod() {

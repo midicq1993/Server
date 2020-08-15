@@ -1,7 +1,6 @@
 package net_package.server10;
 
 import net_package.server10.handler.MyHttpHandler;
-import net_package.exception.HttpMethodException;
 import net_package.exception.HttpFormatException;
 
 import java.io.BufferedReader;
@@ -36,7 +35,7 @@ public class ThreadPooledServer implements Runnable {
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (HttpFormatException | HttpMethodException e) {
+        } catch (HttpFormatException e) {
             System.out.println(e.getMessage());
         }
     }
