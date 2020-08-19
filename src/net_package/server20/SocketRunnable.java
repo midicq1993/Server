@@ -25,7 +25,7 @@ public class SocketRunnable implements Runnable {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
              PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
 
-            //Read and console print whole request
+            //Read and print whole request
             StringBuilder sb = new StringBuilder();
             while (reader.ready()) {
                 sb.append(reader.readLine()).append("\n");
