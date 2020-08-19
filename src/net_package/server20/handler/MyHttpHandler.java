@@ -10,7 +10,6 @@ import java.util.Map;
 public class MyHttpHandler implements HttpHandler {
     public static final Map<String, String> httpReplies = Map.of(
             "200", "OK",
-            "201", "Created",
             "400", "Bad Request"
     );
 
@@ -25,6 +24,7 @@ public class MyHttpHandler implements HttpHandler {
     @Override
     public String createSimpleResponse(Map<String, String> headers) throws HttpFormatException {
         StringBuilder strBuilder = new StringBuilder();
+        String bodyMessage = createBodyMessage();
 
         strBuilder.append(createResponseLine()).append("\r\n");
 
@@ -35,10 +35,10 @@ public class MyHttpHandler implements HttpHandler {
                     .append(pair.getValue())
                     .append("\r\n");
         }
+        strBuilder.append("Content-Length: ").append(bodyMessage.length()).append("\r\n");
         strBuilder.append("\r\n");
 
-        if (!(httpMethod.equalsIgnoreCase("POST")))
-            strBuilder.append(createBodyMessage());
+        strBuilder.append(bodyMessage);
 
         return strBuilder.toString();
     }
@@ -61,13 +61,7 @@ public class MyHttpHandler implements HttpHandler {
                     httpResponseCode = pair.getKey()+" "+pair.getValue();
                 }
             }
-        } else if (httpMethod.equalsIgnoreCase("POST")) {
-            for (Map.Entry<String, String> pair : httpReplies.entrySet()) {
-                if (pair.getKey().equals("201")){
-                    httpResponseCode = pair.getKey()+" "+pair.getValue();
-                }
-            }
-        } else if (httpMethod.equalsIgnoreCase("DELETE")) {
+        } else {
             for (Map.Entry<String, String> pair : httpReplies.entrySet()) {
                 if (pair.getKey().equals("400")){
                     httpResponseCode = pair.getKey()+" "+pair.getValue();
@@ -81,6 +75,6 @@ public class MyHttpHandler implements HttpHandler {
         if (httpMethod.equalsIgnoreCase("GET")) {
             return ResponseEnum.GET.getValue();
         }
-        return ResponseEnum.DELETE.getValue();
+        return ResponseEnum.ELSE.getValue();
     }
 }

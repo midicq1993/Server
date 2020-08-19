@@ -10,9 +10,9 @@ import java.util.StringTokenizer;
 public class MyHttpParser implements SimpleHttpParser {
     private final Map<String, String> allHeaders = new HashMap<>();
 
-    private String httpVersion;
     private String httpMethod;
-
+    private String httpPath;
+    private String httpVersion;
 
     public MyHttpParser() {
     }
@@ -33,9 +33,10 @@ public class MyHttpParser implements SimpleHttpParser {
     }
 
     private void parseRequestLine(String requestLine) throws HttpFormatException {
-        String[] strings = requestLine.split(" / ");
+        String[] strings = requestLine.split(" ");
         setHttpMethod(strings[0]);
-        setHttpVersion(strings[1]);
+        setHttpPath(strings[1]);
+        setHttpVersion(strings[2]);
     }
 
     private void splitHeaderLine(String header) throws HttpFormatException {
@@ -57,6 +58,12 @@ public class MyHttpParser implements SimpleHttpParser {
         this.httpMethod = httpMethod;
     }
 
+    public void setHttpPath(String httpPath) throws HttpFormatException {
+        if (httpPath == null || httpPath.length() == 0)
+            throw new HttpFormatException("Request method is incorrect: " + httpPath);
+        this.httpPath = httpPath;
+    }
+
     public String getHttpVersion() {
         return httpVersion;
     }
@@ -67,5 +74,9 @@ public class MyHttpParser implements SimpleHttpParser {
 
     public String getHttpMethod() {
         return httpMethod;
+    }
+
+    public String getHttpPath() {
+        return httpPath;
     }
 }
