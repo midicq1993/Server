@@ -1,4 +1,4 @@
-package net_package.server20;
+package net_package.server20.main;
 
 
 import net_package.exception.HttpFormatException;

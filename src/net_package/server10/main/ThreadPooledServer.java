@@ -1,4 +1,4 @@
-package net_package.server10;
+package net_package.server10.main;
 
 import net_package.server10.handler.MyHttpHandler;
 import net_package.exception.HttpFormatException;

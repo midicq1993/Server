@@ -1,4 +1,4 @@
-package net_package.server10;
+package net_package.server10.main;
 
 
 import java.io.IOException;
